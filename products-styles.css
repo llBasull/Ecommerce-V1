@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+html,
+body {
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Mulish;
+}
+
+nav {
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+main {
+  width: 1300px;
+  max-width: 1200px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+main > #filters {
+  display: flex;
+  flex-direction: column;
+  width: 18%;
+  align-items: flex-start;
+  gap: 10px;
+  border-right: 1px solid black;
+}
+
+#filters > button {
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 0.8px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#filters > button:hover {
+  color: brown;
+}
+
+.selectedFilter {
+  background-color: #495f11 !important;
+  color: #fff;
+  border: none !important;
+}
+
+.selectedFilter:hover {
+  color: #fff !important;
+}
+
+#products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 2rem;
+  max-width: 79%;
+  margin-left: 3%;
+  object-fit: cover;
+}
+
+.product > img {
+  width: 100%;
+  height: 380px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.product-name {
+  margin: 0;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.product-name:hover {
+  color: brown;
+}
+
+.product-price {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
