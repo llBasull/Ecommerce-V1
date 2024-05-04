@@ -10,13 +10,15 @@ const users = require("../models/users");
 router.use(
   session({
     secret: process.env.SessionSecret,
-    store: new MongoStore({
+    store: MongoStore.create({
       mongoUrl: `mongodb+srv://abhinav:${process.env.password}@ecommercev1.4k1rym2.mongodb.net/?retryWrites=true&w=majority&appName=ecommerceV1`,
       touchAfter: 24 * 3600,
     }),
-    resave: true,
-    saveUninitialized: false,
-    cookie: { secure: true, maxAge: 13 * 24 * 3600000 },
+    cookie: {
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+    },
+    resave: false,
+    saveUninitialized: true,
   })
 );
 
@@ -28,10 +30,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user, done) => {
-  users.find({ _id: user._id }),
-    then((data) => {
-      done(null, user[0]);
-    });
+  users.find({ _id: user._id }).then((data) => {
+    done(null, data[0]);
+  });
 });
 
 passport.use(
@@ -52,7 +53,7 @@ passport.use(
 
 router.route("/signup").get(
   (req, res, next) => {
-    if (req.isAuthenticated == true) {
+    if (req.isAuthenticated() == true) {
       res.redirect("/");
     } else {
       next();
@@ -95,7 +96,11 @@ router.post(
 router.get(
   "/login",
   (req, res, next) => {
-    if (req.isAuthenticated == true) {
+    console.log(req.isAuthenticated());
+    next();
+  },
+  (req, res, next) => {
+    if (req.isAuthenticated()) {
       res.redirect("/");
     } else {
       next();
