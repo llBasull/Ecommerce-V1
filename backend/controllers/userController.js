@@ -7,6 +7,8 @@ const MongoStore = require("connect-mongo");
 require("dotenv").config();
 const users = require("../models/users");
 const bcrypt = require("bcrypt");
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
+var FacebookStrategy = require("passport-facebook").Strategy;
 
 router.use(
   session({
@@ -27,31 +29,67 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user._id); // Serialize the user ID
 });
 
-passport.deserializeUser((user, done) => {
-  users.find({ _id: user._id }).then((data) => {
-    done(null, data[0]);
+passport.deserializeUser((id, done) => {
+  users.findById(id).then((data) => {
+    done(null, data);
   });
 });
 
 passport.use(
   new localStrategy(function (username, password, done) {
-    users.find({ username: username }).then(async (data) => {
+    users.find({ username: username }).then((data) => {
       if (data.length > 0) {
-        bcrypt.compare(password, data[0].password).then((result) => {
-          if (result == true) {
-            done(null, data[0]);
-          } else {
-            done(null, false);
-          }
-        });
+        if (data[0].password == password) {
+          done(null, data[0]);
+        } else {
+          done(null, false);
+        }
       } else {
         done(null, false);
       }
     });
   })
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.clientId,
+      clientSecret: process.env.clientSecret,
+      callbackURL: "http://localhost:2000/user/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      users.find({ googleId: profile.id }).then((data) => {
+        if (data.length == 0) {
+          users.insertMany([{ googleId: profile.id }]);
+        } else {
+          return cb(null, data);
+        }
+      });
+    }
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.appId,
+      clientSecret: process.env.appSecret,
+      callbackURL: "http://localhost:2000/user/auth/facebook/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      users.find({ facebookId: profile.id }).then((data) => {
+        if (data.length == 0) {
+          users.insertMany([{ facebookId: profile.id }]);
+        } else {
+          return cb(null, data);
+        }
+      });
+    }
+  )
 );
 
 router.route("/signup").get(
@@ -68,23 +106,21 @@ router.route("/signup").get(
 );
 
 router.route("/signup").post(async (req, res) => {
-  bcrypt.hash(req.body.password, 3).then((hash) => {
-    users
-      .insertMany([
-        {
-          email: req.body.email,
-          password: hash,
-          username: req.body.username,
-        },
-      ])
-      .then((data, err) => {
-        if (err) {
-          res.send(err);
-        } else {
-          res.redirect("/user/login");
-        }
-      });
-  });
+  users
+    .insertMany([
+      {
+        email: req.body.email,
+        password: req.body.password,
+        username: req.body.username,
+      },
+    ])
+    .then((data, err) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect("/user/login");
+      }
+    });
 });
 
 router.post(
@@ -113,6 +149,34 @@ router.get(
   },
   (req, res) => {
     res.render("login");
+  }
+);
+
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/user/login" }),
+  function (req, res) {
+    res.redirect("/");
+  }
+);
+
+router.get("/auth/facebook", passport.authenticate("facebook"));
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/user/login" })
+);
+
+router.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", { failureRedirect: "/user/login" }),
+  function (req, res) {
+    res.redirect("/");
   }
 );
 
