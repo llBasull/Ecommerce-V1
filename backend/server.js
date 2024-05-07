@@ -81,13 +81,16 @@ app.get(
     res.render("home", { isLoggedIn: req.body.isLoggedIn });
   }
 );
-app.get("/product", (req, res) => {
-  res.render("product");
+app.get("/product/", (req, res) => {
+  products.find({ productName: req.query.id }).then(data => {
+    res.render("product",{
+      product: data[0]
+    });
+  })
 });
 
 app.get("/products", (req, res) => {
   products.find({}).then((data) => {
-    console.log(data);
     res.render("products", { products: data });
   });
 });

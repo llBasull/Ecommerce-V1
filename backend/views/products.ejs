@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products</title>
-    <link rel="stylesheet" href="./products-styles.css" />
+    <link rel="stylesheet" href="/products-styles.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -68,11 +68,13 @@
 
     <section id="products">
       <% for (let index=0; index < products.length; index++) { %>
-        <div class="product">
-                  <img
+        <div class="product" >
+                  <a href="/product?id=<%= products[index].productName %>">
+                    <img 
         src="<%= products[index].imageUrl %>"
         alt=""
         />
+                  </a>
         <p class="product-name"><%= products[index].productName %></p>
         <p class="product-price">₹ &nbsp;<%= products[index].price %>&nbsp;</p>
         </div>
@@ -80,8 +82,12 @@
 
     </section>
     <script>
-      
-    </script>
-    <script src="./products.js"></script>
+      console.log("Hi")
+      var products = JSON.parse(`<%- JSON.stringify(products) -%>`);  
+      products.forEach(item => {
+        console.log(item)
+      }) 
+    </script> 
+    <script src="/products.js"></script>
   </body>
 </html>

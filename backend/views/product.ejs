@@ -4,20 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>E-Commerce</title>
-    <link rel="stylesheet" href="./product-styles.css" />
+    <link rel="stylesheet" href="/product-styles.css" />
   </head>
   <body>
     <nav></nav>
     <main>
       <section id="product">
         <img
-          src="https://cdn.shopify.com/s/files/1/0049/2856/9434/products/p-1_600x.jpg"
+          src="<%= product.imageUrl %>"
           alt="product image"
           id="product-image"
         />
         <div id="product-info">
-          <h3 class="product-name">Basic T-Shirt</h3>
-          <p class="product-price">$&nbsp;45.00&nbsp;USD</p>
+          <h3 class="product-name"><%= product.productName %></h3>
+          <p class="product-price">$ <%= product.price %> USD</p>
           <div class="info-details">
             <div class="headings">
               <span id="Info" class="darkBorderBottom">Info</span>
@@ -69,6 +69,6 @@
         </div>
       </section>
     </main>
-    <script src="./product.js"></script>
+    <script src="/product.js"></script>
   </body>
 </html>
