@@ -64,7 +64,9 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ googleId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ googleId: profile.id }]);
+          users.insertMany([{ googleId: profile.id }]).then((data) => {
+            return cb(null, data[0]);
+          });
         } else {
           return cb(null, data);
         }
@@ -83,7 +85,9 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ facebookId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ facebookId: profile.id }]);
+          users.insertMany([{ facebookId: profile.id }]).then((data) => {
+            return cb(null, data[0]);
+          });
         } else {
           return cb(null, data);
         }
