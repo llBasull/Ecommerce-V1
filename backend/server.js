@@ -10,6 +10,7 @@ const session = require("express-session");
 const localStrategy = require("passport-local");
 const MongoStore = require("connect-mongo");
 const bcrypt = require("bcrypt");
+const products = require("./models/products");
 
 app.use(
   session({
@@ -80,11 +81,15 @@ app.get(
     res.render("home", { isLoggedIn: req.body.isLoggedIn });
   }
 );
-app.get("/product",(req,res)=>{
-  res.render("product")
+app.get("/product", (req, res) => {
+  res.render("product");
 });
-app.get("/products",(req,res)=>{
-  res.render("products")
+
+app.get("/products", (req, res) => {
+  products.find({}).then((data) => {
+    console.log(data);
+    res.render("products", { products: data });
+  });
 });
 
 //Starting the server
