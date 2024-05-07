@@ -80,6 +80,12 @@ app.get(
     res.render("home", { isLoggedIn: req.body.isLoggedIn });
   }
 );
+app.get("/product",(req,res)=>{
+  res.render("product")
+});
+app.get("/products",(req,res)=>{
+  res.render("products")
+});
 
 //Starting the server
 app.listen(2000, () => {
