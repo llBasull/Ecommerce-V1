@@ -5,11 +5,11 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const users = require("./models/users");
 const userController = require("./controllers/userController");
-
 const passport = require("passport");
 const session = require("express-session");
 const localStrategy = require("passport-local");
 const MongoStore = require("connect-mongo");
+const bcrypt = require("bcrypt");
 
 app.use(
   session({
@@ -67,15 +67,17 @@ app.use("/user", userController);
 app.get(
   "/",
   (req, res, next) => {
-    console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
+      req.body.isLoggedIn = true;
       next();
     } else {
-      res.redirect("/user/signup");
+      req.body.isLoggedIn = false;
+      next();
     }
   },
   (req, res) => {
-    res.render("home");
+    console.log(req.body.isLoggedIn);
+    res.render("home", { isLoggedIn: req.body.isLoggedIn });
   }
 );
 

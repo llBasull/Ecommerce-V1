@@ -6,6 +6,7 @@ const localStrategy = require("passport-local");
 const MongoStore = require("connect-mongo");
 require("dotenv").config();
 const users = require("../models/users");
+const bcrypt = require("bcrypt");
 
 router.use(
   session({
@@ -37,13 +38,15 @@ passport.deserializeUser((user, done) => {
 
 passport.use(
   new localStrategy(function (username, password, done) {
-    users.find({ username: username }).then((data) => {
+    users.find({ username: username }).then(async (data) => {
       if (data.length > 0) {
-        if (data[0].password == password) {
-          done(null, data[0]);
-        } else {
-          done(null, false);
-        }
+        bcrypt.compare(password, data[0].password).then((result) => {
+          if (result == true) {
+            done(null, data[0]);
+          } else {
+            done(null, false);
+          }
+        });
       } else {
         done(null, false);
       }
@@ -64,22 +67,24 @@ router.route("/signup").get(
   }
 );
 
-router.route("/signup").post((req, res) => {
-  users
-    .insertMany([
-      {
-        email: req.body.email,
-        password: req.body.password,
-        username: req.body.username,
-      },
-    ])
-    .then((data, err) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.redirect("/user/login");
-      }
-    });
+router.route("/signup").post(async (req, res) => {
+  bcrypt.hash(req.body.password, 3).then((hash) => {
+    users
+      .insertMany([
+        {
+          email: req.body.email,
+          password: hash,
+          username: req.body.username,
+        },
+      ])
+      .then((data, err) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.redirect("/user/login");
+        }
+      });
+  });
 });
 
 router.post(
@@ -110,5 +115,14 @@ router.get(
     res.render("login");
   }
 );
+
+router.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
 
 module.exports = router;
