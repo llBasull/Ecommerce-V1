@@ -110,33 +110,50 @@ router.route("/signup").get(
 );
 
 router.route("/signup").post(async (req, res) => {
-  users
-    .insertMany([
-      {
-        email: req.body.email,
-        password: req.body.password,
-        username: req.body.username,
-      },
-    ])
-    .then((data, err) => {
+  const data = {
+    email: req.body.email,
+    password: req.body.password,
+    username: req.body.username,
+  }
+  const existingUser = await users.findOne({email:data.email});
+  if(existingUser){
+    res.render("/user/login")
+  }
+  else{
+    const saltRounds = 10;
+    const hashedPass = await bcrypt.hash(data.password , saltRounds);
+    data.password = hashedPass;
+    const Userdata = await users.insertMany(data).then((info, err) => {
       if (err) {
         res.send(err);
       } else {
+        console.log(info)
         res.redirect("/user/login");
       }
-    });
+    });;
+  }
 });
 
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/user/login",
-  }),
-  function (req, res) {
-    res.redirect("/");
+router.route("/login").post(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await users.findOne({ email: email });
+  if (!user) {
+    return res.redirect("/user/login");
   }
-);
+  bcrypt.compare(password, user.password, (err, result) => {
+    if (err || !result) {
+      return res.redirect("/user/login");
+    }
+    req.login(user, (err) => {
+      if (err) {
+        console.error(err);
+        return res.redirect("/user/login");
+      }
+      return res.redirect("/");
+    });
+  });
+});
+
 
 router.get(
   "/login",
