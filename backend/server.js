@@ -1,16 +1,31 @@
-// Importing Node Modules
+// Importing Basic Modules
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
-const users = require("./models/users");
+
+// Importing Controllers
 const userController = require("./controllers/userController");
+const Controller = require("./controllers/Controller")
+
+// Importing Modules for Auth
 const passport = require("passport");
 const session = require("express-session");
 const localStrategy = require("passport-local");
 const MongoStore = require("connect-mongo");
-const bcrypt = require("bcrypt");
+
+//D Importing Database Models
 const products = require("./models/products");
+const users = require("./models/users");
+
+mongoose
+  .connect(
+    `mongodb+srv://abhinav:${process.env.password}@ecommercev1.4k1rym2.mongodb.net/?retryWrites=true&w=majority&appName=ecommerceV1`
+  )
+  .then(() => {
+    console.log("Connected to the database");
+  });
+
 
 app.use(
   session({
@@ -63,47 +78,9 @@ app.set("view engine", "ejs");
 
 // Routes
 app.use("/user", userController);
+app.use("/", Controller)
 
-// Route Handlers
-app.get(
-  "/",
-  (req, res, next) => {
-    if (req.isAuthenticated()) {
-      req.body.isLoggedIn = true;
-      next();
-    } else {
-      req.body.isLoggedIn = false;
-      next();
-    }
-  },
-  (req, res) => {
-    console.log(req.body.isLoggedIn);
-    res.render("home", { isLoggedIn: req.body.isLoggedIn });
-  }
-);
-app.get("/product/", (req, res) => {
-  products.find({ productName: req.query.id }).then(data => {
-    res.render("product",{
-      product: data[0]
-    });
-  })
-});
 
-app.get("/products", (req, res) => {
-  products.find({}).then((data) => {
-    res.render("products", { products: data });
-  });
-});
-
-app.post("/product-search", (req, res) => {
-  products.find({ productName: RegExp(req.body.query, "i") }).then(productList => {
-    res.render("products", { products: productList });
-  })
-})
-
-app.get("/about", (req, res) => {
-    res.render("about",);
-});
 
 //Starting the server
 app.listen(2000, () => {

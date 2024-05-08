@@ -9,6 +9,8 @@ const users = require("../models/users");
 const bcrypt = require("bcrypt");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
+let { login_signup_middleware } = require("../middleware/authMiddleware")
+let {loginLogic, signupLogic} = require("../logic/authenticationLogic")
 
 router.use(
   session({
@@ -85,7 +87,7 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ facebookId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ facebookId: profile.id }]).then((data) => {
+          users.insertMany([{ facebookId: profile.id, username: profile.username }]).then((data) => {
             return cb(null, data[0]);
           });
         } else {
@@ -97,70 +99,15 @@ passport.use(
 );
 
 router.route("/signup").get(
-  (req, res, next) => {
-    if (req.isAuthenticated() == true) {
-      res.redirect("/");
-    } else {
-      next();
-    }
-  },
+  login_signup_middleware,
   (req, res) => {
     res.render("signup");
   }
 );
 
-router.route("/signup").post(async (req, res) => {
-  const data = {
-    email: req.body.email,
-    password: req.body.password,
-    username: req.body.username,
-  }
-  const existingUser = await users.findOne({email:data.email});
-  if(existingUser){
-    res.render("/user/login")
-  }
-  else{
-    const saltRounds = 10;
-    const hashedPass = await bcrypt.hash(data.password , saltRounds);
-    data.password = hashedPass;
-    const Userdata = await users.insertMany(data).then((info, err) => {
-      if (err) {
-        res.send(err);
-      } else {
-        console.log(info)
-        res.redirect("/user/login");
-      }
-    });;
-  }
-});
-
-router.route("/login").post(async (req, res) => {
-  const { email, password } = req.body;
-  const user = await users.findOne({ email: email });
-  if (!user) {
-    return res.redirect("/user/login");
-  }
-  bcrypt.compare(password, user.password, (err, result) => {
-    if (err || !result) {
-      return res.redirect("/user/login");
-    }
-    req.login(user, (err) => {
-      if (err) {
-        console.error(err);
-        return res.redirect("/user/login");
-      }
-      return res.redirect("/");
-    });
-  });
-});
-
-
 router.get(
   "/login",
-  (req, res, next) => {
-    console.log(req.isAuthenticated());
-    next();
-  },
+  login_signup_middleware,
   (req, res, next) => {
     if (req.isAuthenticated()) {
       res.redirect("/");
@@ -173,6 +120,11 @@ router.get(
   }
 );
 
+router.route("/signup").post(signupLogic);
+
+router.route("/login").post(loginLogic);
+
+// Oauth Google
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
@@ -186,12 +138,8 @@ router.get(
   }
 );
 
+//Oauth Facebook
 router.get("/auth/facebook", passport.authenticate("facebook"));
-
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/user/login" })
-);
 
 router.get(
   "/auth/facebook/callback",
@@ -201,6 +149,7 @@ router.get(
   }
 );
 
+//
 router.get("/logout", function (req, res, next) {
   req.logout(function (err) {
     if (err) {
