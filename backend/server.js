@@ -95,6 +95,16 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.post("/product-search", (req, res) => {
+  products.find({ productName: RegExp(req.body.query, "i") }).then(productList => {
+    res.render("products", { products: productList });
+  })
+})
+
+app.get("/about", (req, res) => {
+    res.render("about",);
+});
+
 //Starting the server
 app.listen(2000, () => {
   console.log("Server up and running");

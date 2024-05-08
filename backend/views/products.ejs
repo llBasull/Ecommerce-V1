@@ -18,11 +18,14 @@
     </script>
   <body>
     <div class="overlay"></div>
-
     <nav id="navbar">
       <button class="filters">
         <span class="material-symbols-outlined"> tune </span>
       </button>
+      <form class="search-div" action="/product-search" method="post">
+        <input type="text" name="query">
+        <button type="submit">Search</button>
+      </form>
     </nav>
     <section id="filters">
       <h3 style="display: inline-flex; align-items: center; gap: 12px">
@@ -59,9 +62,9 @@
         </div>
         <div class="range-price">
           <label for="min">Min</label>
-          <input type="number" name="min" value="300" />
+          <input type="number" name="min" value="1200" />
           <label for="max">Max</label>
-          <input type="number" name="max" value="700" />
+          <input type="number" name="max" value="2800" />
         </div>
       </div>
     </section>

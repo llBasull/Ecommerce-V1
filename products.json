@@ -1,154 +1,154 @@
 [
     {
-        "productName" : "Basic Sweat Shirt",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/product-05_1024x1024.jpg?v=1553074064",
-        "price":"20",
-        "color" : "Orange",
-        "category":"Men",
-        "group":"A"
+        "productName": "Basic Sweat Shirt",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/product-05_1024x1024.jpg?v=1553074064",
+        "price": "2809",
+        "color": ["orange", "blue"],
+        "category": "Men",
+        "group": "A"
     },
     {
-        "productName" : "Basic T Shirt",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/p-1_1024x.jpg?v=1561600837",
-        "price":"15",
-        "color":"Red",
-        "category":"Men",
-        "group":"A"
+        "productName": "Basic T Shirt",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/p-1_1024x.jpg?v=1561600837",
+        "price": "3755",
+        "color": ["navy", "red", "grey"],
+        "category": "Men",
+        "group": "A"
     },
     {
-        "productName" : "Buttoned T Shirt",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/p-21_1024x.jpg?v=1561601244",
-        "price":"23",
-        "color":"Yellow",
-        "category":"Women",
-        "group":"A"
+        "productName": "Buttoned T Shirt",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/p-21_1024x.jpg?v=1561601244",
+        "price": "2323",
+        "color": ["violet", "yellow", "dodgerblue"],
+        "category": "Women",
+        "group": "A"
     },
     {
-        "productName" : "Dress With Tie Sleeves",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/a1_1024x.jpg?v=1561602483",
-        "price":"28",
-        "color":"Orange",
-        "category":"Women",
-        "group":"B"
+        "productName": "Dress With Tie Sleeves",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/a1_1024x.jpg?v=1561602483",
+        "price": "3521",
+        "color": ["peach", "darkblue", "blue"],
+        "category": "Women",
+        "group": "B"
     },
     {
-        "productName" : "Cropped Jeans",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/1-1_1024x.jpg?v=1561602127",
-        "price":"30",
-        "color":"Blue",
-        "category":"Men",
-        "group":"C"
+        "productName": "Cropped Jeans",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/1-1_1024x.jpg?v=1561602127",
+        "price": "1243",
+        "color": ["blue", "aqua", "dodgerblue"],
+        "category": "Men",
+        "group": "C"
     },
     {
-        "productName" : "Hooded Coat",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/ak1_1024x.jpg?v=1561603105",
-        "price":"28",
-        "color":"Brown",
-        "category":"Men",
-        "group":"D"
+        "productName": "Hooded Coat",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/ak1_1024x.jpg?v=1561603105",
+        "price": "2988",
+        "color": ["blue", "red", "orange"],
+        "category": "Men",
+        "group": "D"
     },
     {
-        "productName" : "Light Nylon Jacket",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/ab1_1024x.jpg?v=1561603270",
-        "price":"35",
-        "color":"Blue",
-        "category":"Men",
-        "group":"D"
+        "productName": "Light Nylon Jacket",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/ab1_1024x.jpg?v=1561603270",
+        "price": "1037",
+        "color": ["green", "black", "grey"],
+        "category": "Men",
+        "group": "D"
     },
     {
-        "productName" : "Men Tshirt Luxury",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/xdt1_1024x.jpg?v=1561603551",
-        "price":"25",
-        "color":"Blue",
-        "category":"Men",
-        "group":"A"
+        "productName": "Men Tshirt Luxury",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/xdt1_1024x.jpg?v=1561603551",
+        "price": "1734",
+        "color": ["yellow", "darkblue", "green"],
+        "category": "Men",
+        "group": "A"
     },
     {
-        "productName" : "Pearly Side Stripe Shorts",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/8-1_1024x.jpg?v=1561604150",
-        "price":"33",
-        "color":"Blue",
-        "category":"Women",
-        "group":"C"
+        "productName": "Pearly Side Stripe Shorts",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/8-1_1024x.jpg?v=1561604150",
+        "price": "3931",
+        "color": ["grey", "dodgerblue", "green"],
+        "category": "Women",
+        "group": "C"
     },
     {
-        "productName" : "Pants with Side Stripes",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/13_1024x.jpg?v=1561603988",
-        "price":"28",
-        "color":"Black",
-        "category":"Women",
-        "group":"C"
+        "productName": "Pants with Side Stripes",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/13_1024x.jpg?v=1561603988",
+        "price": "987",
+        "color": ["orange", "black", "green"],
+        "category": "Women",
+        "group": "C"
     },
     {
-        "productName" : "Mens Hoodie",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/10_1024x.jpg?v=1561603702",
-        "price":"27",
-        "color":"Yellow",
-        "category":"Men",
-        "group":"D"
+        "productName": "Mens Hoodie",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/10_1024x.jpg?v=1561603702",
+        "price": "3835",
+        "color": ["green", "yellow", "dodgerblue"],
+        "category": "Men",
+        "group": "D"
     },
     {
-        "productName" : "Women Plain Shorts",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/vnv1_1024x.jpg?v=1561604385",
-        "price":"24",
-        "color":"Yellow",
-        "category":"Women",
-        "group":"C"
+        "productName": "Women Plain Shorts",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/vnv1_1024x.jpg?v=1561604385",
+        "price": "1084",
+        "color": ["green", "yellow", "orange"],
+        "category": "Women",
+        "group": "C"
     },
     {
-        "productName" : "Women Shorts",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/a8_1024x.jpg?v=1568596941",
-        "price":"30",
-        "color":"Brown",
-        "category":"Men",
-        "group":"C"
+        "productName": "Women Shorts",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/a8_1024x.jpg?v=1568596941",
+        "price": "3601",
+        "color": ["orange", "blue", "navy"],
+        "category": "Men",
+        "group": "C"
     },
     {
-        "productName" : "Flowy Skirts",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/1_1-2_1024x.jpg?v=1561602649",
-        "price":"50",
-        "color":"Black",
-        "category":"Women",
-        "group":"B"
+        "productName": "Flowy Skirts",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/1_1-2_1024x.jpg?v=1561602649",
+        "price": "4383",
+        "color": ["blue", "grey", "orange"],
+        "category": "Women",
+        "group": "B"
     },
     {
-        "productName" : "Flowy Pallazo",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/qd1_1024x.jpg?v=1561602799",
-        "price":"38",
-        "color":"Black",
-        "category":"Women",
-        "group":"B"
+        "productName": "Flowy Pallazo",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/qd1_1024x.jpg?v=1561602799",
+        "price": "5615",
+        "color": ["orange", "black", "dodgerblue"],
+        "category": "Women",
+        "group": "B"
     },
     {
-        "productName" : "Guide Pack Cap",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/xlc1_1024x.jpg?v=1561602908",
-        "price":"12",
-        "color":"Green",
-        "category":"Men",
-        "group":"D"
+        "productName": "Guide Pack Cap",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/xlc1_1024x.jpg?v=1561602908",
+        "price": "4165",
+        "color": ["black", "grey", "green"],
+        "category": "Men",
+        "group": "D"
     },
     {
-        "productName" : "Striped Braid Hat",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/n1_1024x.jpg?v=1561604528",
-        "price":"18",
-        "color":"Blue",
-        "category":"Men",
-        "group":"D"
+        "productName": "Striped Braid Hat",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/n1_1024x.jpg?v=1561604528",
+        "price": "4311",
+        "color": ["red", "black", "grey"],
+        "category": "Men",
+        "group": "D"
     },
     {
-        "productName" : "Cotton Tshirt",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/1-11_1024x.jpg?v=1561601648",
-        "price":"15",
-        "color":"Orange",
-        "category":"Men",
-        "group":"A"
+        "productName": "Cotton Tshirt",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/1-11_1024x.jpg?v=1561601648",
+        "price": "4523",
+        "color": ["darkblue", "green"],
+        "category": "Men",
+        "group": "A"
     },
     {
-        "productName" : "Crewneck Blouse",
-        "imageUrl" : "https://store-bixbang.myshopify.com/cdn/shop/products/e1_1024x.jpg?v=1561601861",
-        "price":"20",
-        "color":"Blue",
-        "category":"Women",
-        "group":"B"
+        "productName": "Crewneck Blouse",
+        "imageUrl": "https://store-bixbang.myshopify.com/cdn/shop/products/e1_1024x.jpg?v=1561601861",
+        "price": "3666",
+        "color": ["orange", "dodgerblue", "green"],
+        "category": "Women",
+        "group": "B"
     }
 ]

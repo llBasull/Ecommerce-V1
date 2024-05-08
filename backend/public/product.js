@@ -24,7 +24,7 @@ infoDiv.forEach((item) => {
   });
 });
 
-let colorsList = ["red", "pink", "Navy"];
+let colorsList = productInfo.color;
 let sizeList = ["S", "M", "L"];
 if (colorsList.length > 0) {
   let colorListDiv = document.querySelector("#color-list");

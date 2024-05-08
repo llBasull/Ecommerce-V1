@@ -15,12 +15,13 @@ let colorsList = [
   "red",
   "pink",
   "navy",
-  "lightgreen",
-  "lightblue",
+  "green",
+  "dodgerblue",
   "blue",
   "orange",
-  "green",
   "grey",
+  "black",
+  "yellow"
 ];
 
 let selectedColors = [];
@@ -59,10 +60,10 @@ if (colorsList.length > 0) {
           let productElement = document.createElement("div");
           productElement.classList.add("product");
           productElement.innerHTML = `
-    <img
+    <a href='/product?id=${item.productName}'><img
         src="${item.imageUrl}"
         alt=""
-    />
+    /></a>
     <p class="product-name">${item.productName}</p>
     <p class="product-price">₹ &nbsp;${item.price}&nbsp;</p>
     `;
@@ -73,7 +74,8 @@ if (colorsList.length > 0) {
 
         selectedColors.forEach((item) => {
           products.forEach((product) => {
-            if (product.availableColors.includes(item)) {
+            console.log(product.color)
+            if (product.color.includes(item)) {
               if (!displayedColors.includes(product)) {
                 displayedColors.push(product);
               }
@@ -87,10 +89,10 @@ if (colorsList.length > 0) {
           let productElement = document.createElement("div");
           productElement.classList.add("product");
           productElement.innerHTML = `
-    <img
+    <a href='/product?id=${item.productName}'><img
         src="${item.imageUrl}"
         alt=""
-    />
+    /></a>
     <p class="product-name">${item.productName}</p>
     <p class="product-price">₹ &nbsp;${item.price}&nbsp;</p>
     `;
@@ -104,20 +106,7 @@ if (colorsList.length > 0) {
 }
 
 let productsSection = document.querySelector("#products");
-products.forEach((item) => {
 
-  let productElement = document.createElement("div");
-  productElement.classList.add("product");
-  productElement.innerHTML = `
-    <img
-        src="${item.imageUrl}"
-        alt=""
-    />
-    <p class="product-name">${item.productName}</p>
-    <p class="product-price">₹ &nbsp;${item.price}&nbsp;</p>
-    `;
-  productsSection.append(productElement);
-});
 
 let rangeMin = 100;
 const range = document.querySelector(".range-selected");
@@ -153,10 +142,10 @@ rangeInput.forEach((input) => {
       let productElement = document.createElement("div");
       productElement.classList.add("product");
       productElement.innerHTML = `
-    <img
+<a href='/product?id=${item.productName}'><img
         src="${item.imageUrl}"
         alt=""
-    />
+    /></a>
     <p class="product-name">${item.productName}</p>
     <p class="product-price">₹ &nbsp;${item.price}&nbsp;</p>
     `;
