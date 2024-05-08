@@ -41,8 +41,8 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(
-  new localStrategy(function (username, password, done) {
-    users.find({ username: username }).then((data) => {
+  new localStrategy(function (email, password, done) {
+    users.find({ email: email }).then((data) => {
       if (data.length > 0) {
         if (data[0].password == password) {
           done(null, data[0]);

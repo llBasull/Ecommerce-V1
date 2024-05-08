@@ -16,16 +16,11 @@ let signupLogic = async (req, res) => {
     if (existingUser) {
         res.redirect("/user/login")
     } else{
-        const saltRounds = 10;
+        const saltRounds = 3;
         const hashedPass = await bcrypt.hash(data.password , saltRounds);
         data.password = hashedPass;
-        const user = await users.insertMany(data).then((info, err) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log(info)
-                res.redirect("/user/login");
-            }
+        users.insertMany(data).then((data) => {
+        res.redirect("/user/login");
         });;
     }
 }
