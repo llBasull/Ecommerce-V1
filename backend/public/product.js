@@ -86,3 +86,24 @@ if (sizeList.length > 0) {
 } else {
   document.querySelector("#available-sizes").style.display = "none";
 }
+
+document.querySelector("#add-to-cart").addEventListener("click", () => {
+  let productId = productInfo._id;
+  let quantity = document.querySelector("#quantity").value;
+  fetch("/addToCart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      productId,
+      quantity
+    })
+  }).then(response => {
+    if (response.status == "error") {
+      console.log("Error Occurred")
+    } else if (response.status == "success") {
+      console.log("Item Added")
+    }
+  })
+})

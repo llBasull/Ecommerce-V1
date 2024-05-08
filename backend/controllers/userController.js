@@ -122,7 +122,11 @@ router.get(
 
 router.route("/signup").post(signupLogic);
 
-router.route("/login").post(loginLogic);
+router.route("/login").post(
+  passport.authenticate('local', { failureRedirect: '/user/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 // Oauth Google
 router.get(
@@ -158,5 +162,7 @@ router.get("/logout", function (req, res, next) {
     res.redirect("/");
   });
 });
+
+
 
 module.exports = router;

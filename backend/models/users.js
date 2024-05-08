@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
   email: String,
   googleId: String,
   facebookId: String,
+  cart: Array
 });
 
 module.exports = mongoose.model("user", schema);

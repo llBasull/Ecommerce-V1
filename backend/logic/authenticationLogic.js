@@ -16,9 +16,6 @@ let signupLogic = async (req, res) => {
     if (existingUser) {
         res.redirect("/user/login")
     } else{
-        const saltRounds = 3;
-        const hashedPass = await bcrypt.hash(data.password , saltRounds);
-        data.password = hashedPass;
         users.insertMany(data).then((data) => {
         res.redirect("/user/login");
         });;
