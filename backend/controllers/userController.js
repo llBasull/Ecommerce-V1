@@ -66,7 +66,7 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ googleId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ googleId: profile.id }]).then((data) => {
+          users.insertMany([{ googleId: profile.id, email: profile.emails[0].value }]).then((data) => {
             return cb(null, data[0]);
           });
         } else {
@@ -87,7 +87,7 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ facebookId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ facebookId: profile.id, username: profile.username }]).then((data) => {
+          users.insertMany([{ facebookId: profile.id, username: profile.emails[0].value }]).then((data) => {
             return cb(null, data[0]);
           });
         } else {
@@ -127,7 +127,7 @@ router.route("/login").post(loginLogic);
 // Oauth Google
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 router.get(
@@ -139,7 +139,7 @@ router.get(
 );
 
 //Oauth Facebook
-router.get("/auth/facebook", passport.authenticate("facebook"));
+router.get("/auth/facebook", router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email"] })));
 
 router.get(
   "/auth/facebook/callback",
