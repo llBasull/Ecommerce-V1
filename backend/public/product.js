@@ -26,9 +26,9 @@ infoDiv.forEach((item) => {
 
 let colorsList = productInfo.color;
 let sizeList = ["S", "M", "L"];
+let colorSelected = colorsList[0];
 if (colorsList.length > 0) {
   let colorListDiv = document.querySelector("#color-list");
-  let colorSelected = colorsList[0];
 
   for (let i = 0; i < colorsList.length; i++) {
     let colorDiv = document.createElement("div");
@@ -85,9 +85,10 @@ if (sizeList.length > 0) {
   });
 } else {
   document.querySelector("#available-sizes").style.display = "none";
-}
+} 
 
-document.querySelector("#add-to-cart").addEventListener("click", () => {
+document.querySelector("#add-to-cart").addEventListener("click", (event) => {
+  event.preventDefault(); // Prevent default form submission
   let productId = productInfo._id;
   let quantity = document.querySelector("#quantity").value;
   fetch("/addToCart", {
@@ -97,13 +98,36 @@ document.querySelector("#add-to-cart").addEventListener("click", () => {
     },
     body: JSON.stringify({
       productId,
-      quantity
+      quantity,
+      colorSelected
     })
   }).then(response => {
     return response.json()
   }).then(data => {
-    if (data.message == "User Not Logged In") {
-      document.location = "http://localhost:2000/user/login"
+    if (data.status == "success") {
+      document.querySelector("#add-to-cart").style.display = "none"
+      document.querySelector("#remove-from-cart").style.display = "block"
     }
   })
-})
+});
+
+// Event listener for "remove-from-cart" button
+document.querySelector("#remove-from-cart").addEventListener("click", () => {
+  let productId = productInfo._id;
+  fetch("/removeFromCart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      productId,
+    })
+  }).then(response => {
+    return response.json()
+  }).then(data => {
+    if (data.status == "success") {
+      document.querySelector("#add-to-cart").style.display = "block"
+      document.querySelector("#remove-from-cart").style.display = "none"
+    }
+  })
+});

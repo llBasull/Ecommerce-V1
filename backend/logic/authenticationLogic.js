@@ -12,8 +12,8 @@ let signupLogic = async (req, res) => {
     password: req.body.password,
     username: req.body.username,
     }
-    const existingUser = await users.findOne({email:data.email});
-    if (existingUser) {
+    const existingUser = await users.find({email:data.email});
+    if (existingUser.length > 0) {
         res.redirect("/user/login")
     } else{
         users.insertMany(data).then((data) => {
@@ -24,11 +24,11 @@ let signupLogic = async (req, res) => {
 
 let loginLogic = async (req, res) => {
     const { email, password } = req.body;
-    const user = await users.findOne({ email: email });
+    const user = await users.find({ email: email });
     if (!user) {
         return res.redirect("/user/login");
     }
-    bcrypt.compare(password, user.password, (err, result) => {
+    bcrypt.compare(password, user[0].password, (err, result) => {
         if (err || !result) {
         return res.redirect("/user/login");
         }

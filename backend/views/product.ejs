@@ -65,9 +65,11 @@
               <input type="number" name="" id="quantity" min="1" value="1" />
             </div>
             <% if (inCart == true) { %>
-              <button id="remove-from-cart">remove from Cart</button>
+                <button id="remove-from-cart">remove from Cart</button>
+                <button id="add-to-cart" style="display: none;">Add to Cart</button>
             <% } else { %>
                 <button id="add-to-cart">Add to Cart</button>
+                <button id="remove-from-cart" style="display: none;">remove from Cart</button>
             <% } %>
           </div>
         </div>
