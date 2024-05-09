@@ -188,7 +188,7 @@ section#product {
   border-bottom: 1px solid black;
 }
 
-#add-to-cart {
+#add-to-cart, #remove-from-cart {
   width: 100%;
   border: none;
   background-color: #b94e31;
@@ -199,7 +199,7 @@ section#product {
   cursor: pointer;
 }
 
-#add-to-cart:hover {
+#add-to-cart:hover, #remove-from-cart:hover {
   background-color: #495f11;
   transition: background-color 250ms linear;
 }

@@ -24,7 +24,7 @@ mongoose
   )
   .then(() => {
     console.log("Connected to the database");
-  });
+});
 
 
 app.use(

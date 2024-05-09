@@ -15,20 +15,41 @@ router.get(
   "/",
   homepage_middleware,
   (req, res) => {
-    console.log(req.body.isLoggedIn);
     res.render("home", { isLoggedIn: req.body.isLoggedIn });
   }
 );
-router.get("/product/", (req, res) => {
+router.get("/product/", async (req, res) => {
+  let user = await users.find({ _id: req.session.passport.user });
+  
   products.find({ productName: req.query.id }).then(data => {
-    res.render("product",{
-      product: data[0]
-    });
+    let inCart = false;
+    user[0].cart.map(item => {
+      console.log(item.productId == data[0]._id)
+      if (item.productId == data[0]._id) {
+        inCart = true
+      } else {
+        if (!inCart == true) {
+          inCart = false
+        }
+      }
+    })
+    console.log(inCart)
+    if (inCart) {
+      res.render("product",{
+          product: data[0],
+          inCart: true
+        });
+    } else {
+      res.render("product",{
+          product: data[0],
+          inCart: false
+        });
+    }
   })
 });
 
 router.get("/products", (req, res) => {
-  products.find({}).then((data) => {
+  products.find({}).then(async (data) => {
     res.render("products", { products: data });
   });
 });
@@ -45,7 +66,6 @@ router.post("/addToCart", (req, res) => {
       let userCart = data[0].cart;
       if (userCart.length == 0) {
         userCart = [req.body]
-        console.log("Empty Cart")
         users.updateMany({ _id: req.session.passport.user }, { cart: userCart }).then(data => {
           console.log(data)
         })
