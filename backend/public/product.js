@@ -100,10 +100,10 @@ document.querySelector("#add-to-cart").addEventListener("click", () => {
       quantity
     })
   }).then(response => {
-    if (response.status == "error") {
-      console.log("Error Occurred")
-    } else if (response.status == "success") {
-      console.log("Item Added")
+    return response.json()
+  }).then(data => {
+    if (data.message == "User Not Logged In") {
+      document.location = "http://localhost:2000/user/login"
     }
   })
 })

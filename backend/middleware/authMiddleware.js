@@ -6,7 +6,7 @@ let login_signup_middleware = (req, res, next) => {
     }
 }
 
-let homepage_middleware = (req, res, next) => {
+let isLoggedInFunc = (req, res, next) => {
     if (req.isAuthenticated()) {
       req.body.isLoggedIn = true;
       next();
@@ -16,4 +16,4 @@ let homepage_middleware = (req, res, next) => {
     }
 }
 
-module.exports = {login_signup_middleware, homepage_middleware}
+module.exports = {login_signup_middleware, isLoggedInFunc}

@@ -7,19 +7,20 @@ require("dotenv").config();
 const products = require("../models/products");
 const users = require("../models/users");
 
-let { homepage_middleware } = require("../middleware/authMiddleware")
+let { isLoggedInFunc } = require("../middleware/authMiddleware")
 router.use(express.json())
 
 // Route Handlers
 router.get(
   "/",
-  homepage_middleware,
+  isLoggedInFunc,
   (req, res) => {
     res.render("home", { isLoggedIn: req.body.isLoggedIn });
   }
 );
-router.get("/product/", async (req, res) => {
-  let user = await users.find({ _id: req.session.passport.user });
+router.get("/product/", isLoggedInFunc, async (req, res) => {
+  if (req.body.isLoggedIn == true) {
+    let user = await users.find({ _id: req.session.passport.user });
   
   products.find({ productName: req.query.id }).then(data => {
     let inCart = false;
@@ -46,6 +47,14 @@ router.get("/product/", async (req, res) => {
         });
     }
   })
+  } else {
+    products.find({ productName: req.query.id }).then(data => {
+      res.render("product", {
+        product: data[0],
+        inCart: false
+      });
+    })
+  }
 });
 
 router.get("/products", (req, res) => {
@@ -60,7 +69,8 @@ router.post("/product-search", (req, res) => {
   })
 })
 
-router.post("/addToCart", (req, res) => {
+router.post("/addToCart", isLoggedInFunc, (req, res) => {
+  if (req.body.isLoggedIn == true) {
     let response = {}
     users.find({ _id: req.session.passport.user }).then(data => {
       let userCart = data[0].cart;
@@ -83,12 +93,15 @@ router.post("/addToCart", (req, res) => {
           userCart.push(req.body)
           users.updateMany({ _id: req.session.passport.user }, { cart: userCart }).then(data => console.log(data))
           response = {status: "success", message: "Product Added to the cart"}
-        } else[
+        } else {
           response = {status: "error", message: "Product Already Exists"}
-        ]
+        }
       }
       res.json(response)
   })
+  } else if (req.body.isLoggedIn == false ){
+    res.json({status: "error", message: "User Not Logged In"})
+  }
 })
 
 router.get("/about", (req, res) => {
