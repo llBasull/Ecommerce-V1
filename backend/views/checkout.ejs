@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="checkoutBTN">Checkout</button>
+    <script>
+document.querySelector("#checkoutBTN").addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent the default behavior of the button click event
+
+    fetch("/create-checkout-session", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            items: [
+                { id: "663a344ced92b3f61c2ce7d7", quantity: 2 },
+                {id: "663a344ced92b3f61c2ce7d8", quantity: 1}
+            ]
+        })
+    }).then(res => {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return res.json().then(json => Promise.reject(json))
+        }
+    }).then(({ url }) => {
+        console.log(url)
+        window.location = url
+    }).catch(e => {
+        console.error(e)
+    })
+})
+    </script>
+</body>
+</html>
